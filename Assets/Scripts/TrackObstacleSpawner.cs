@@ -7,7 +7,7 @@ public class TrackObstacleSpawner : MonoBehaviour
     public float trackWidth = 4f;
     public float trackLength = 50f;
 
-    public Transform floor; // 👈 Drag your "Track" (floor cube) here in the prefab
+    public Transform floor; 
 
     public void SpawnObstacles()
     {
