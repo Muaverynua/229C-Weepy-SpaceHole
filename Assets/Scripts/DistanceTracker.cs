@@ -32,7 +32,7 @@ public class DistanceTracker : MonoBehaviour
         float distance = Mathf.Floor(player.position.z - startZ);
         distance = Mathf.Max(0, distance);
 
-        finalScoreText.text = "You reached: " + distance + " m";
+        finalScoreText.text = "Distance: " + distance + " m";
     }
 }
 

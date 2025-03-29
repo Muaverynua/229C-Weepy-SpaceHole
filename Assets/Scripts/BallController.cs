@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
-    public float forwardSpeed = 10f;           // Starting speed
-    public float turnSpeed = 5f;               // Left/right movement speed
-    public float maxSpeed = 30f;               // Max forward speed
-    public float speedIncreaseRate = 0.333f;   // How fast speed increases over time
+    public float acceleration = 5f;        // Custom acceleration (a)
+    public float maxSpeed = 30f;           // Max velocity
+    public float turnSpeed = 5f;           // Left/right force multiplier
+    public float speedIncreaseRate = 0.05f;  // How fast speed increases over time
 
     private Rigidbody rb;
 
@@ -17,24 +17,22 @@ public class BallController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Get current forward speed (Z direction only)
-        float currentForwardSpeed = Vector3.Dot(rb.linearVelocity, Vector3.forward);
-
-        // Gradually increase speed over time
-        if (forwardSpeed < maxSpeed)
+        // Gradually increase acceleration
+        if (acceleration < maxSpeed)
         {
-            forwardSpeed += speedIncreaseRate * Time.deltaTime;
+            acceleration += speedIncreaseRate * Time.fixedDeltaTime;
         }
 
-        // Only apply forward force if not already at max forward speed
-        if (currentForwardSpeed < maxSpeed)
-        {
-            rb.AddForce(Vector3.forward * forwardSpeed, ForceMode.Acceleration);
-        }
+        // ✅ Calculate force manually: F = m * a
+        float mass = rb.mass;
+        float forwardForce = mass * acceleration;
 
-        // Player-controlled left/right movement
-        float moveHorizontal = Input.GetAxis("Horizontal"); // A/D or Left/Right Arrow
-        rb.AddForce(Vector3.right * moveHorizontal * turnSpeed, ForceMode.Acceleration);
+        Vector3 forceDirection = Vector3.forward;
+        rb.AddForce(forceDirection * forwardForce);
+
+        // Side movement
+        float input = Input.GetAxis("Horizontal");
+        rb.AddForce(Vector3.right * input * turnSpeed, ForceMode.Acceleration);
     }
     void OnCollisionEnter(Collision collision)
     {
