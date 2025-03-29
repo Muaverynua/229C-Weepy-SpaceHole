@@ -3,6 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+
+    public GameObject creditCanvas; 
+    public GameObject mainMenuCanvas;
     public void StartGame()
     {
         SceneManager.LoadScene("MainGame"); // Replace with your actual game scene name
@@ -16,9 +19,15 @@ public class MainMenu : MonoBehaviour
         #endif
     }
 
-    public void OpenOptions()
+    public void ShowCredits()
     {
-        // You can load an options scene or enable an options panel here
-        Debug.Log("Options button clicked!");
+        creditCanvas.SetActive(true);
+        if (mainMenuCanvas != null) mainMenuCanvas.SetActive(false);
+    }
+
+    public void HideCredits()
+    {
+        creditCanvas.SetActive(false);
+        if (mainMenuCanvas != null) mainMenuCanvas.SetActive(true);
     }
 }
