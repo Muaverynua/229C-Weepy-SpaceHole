@@ -2,16 +2,14 @@ using UnityEngine;
 
 public class TrackObstacleSpawner : MonoBehaviour
 {
-    public GameObject obstaclePrefab;
-    public int obstacleCount = 5;
-    public float trackWidth = 4f;
-    public float trackLength = 50f;
-
-    public Transform floor; 
+    public GameObject[] obstaclePrefabs; // 👈 Drag multiple prefabs here
+    public int obstacleCount = 30;
+    public float trackWidth = 40f;
+    public float trackLength = 500f;
 
     public void SpawnObstacles()
     {
-        // Clear old obstacles (children tagged as "Obstacle")
+        // Remove old obstacles
         foreach (Transform child in transform)
         {
             if (child.CompareTag("Obstacle"))
@@ -20,14 +18,15 @@ public class TrackObstacleSpawner : MonoBehaviour
             }
         }
 
-        // Spawn new obstacles as children of this track
         for (int i = 0; i < obstacleCount; i++)
         {
             float randomX = Random.Range(-trackWidth / 2f, trackWidth / 2f);
             float randomZ = Random.Range(-trackLength / 2f, trackLength / 2f);
             Vector3 localPos = new Vector3(randomX, 0.5f, randomZ);
 
-            GameObject obstacle = Instantiate(obstaclePrefab, transform);
+            // 👇 Pick a random obstacle prefab
+            GameObject prefab = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
+            GameObject obstacle = Instantiate(prefab, transform);
             obstacle.transform.localPosition = localPos;
             obstacle.tag = "Obstacle";
         }

@@ -5,7 +5,7 @@ public class InfiniteScroller : MonoBehaviour
     public Transform player;                // Assign your Ball here
     public GameObject trackPrefab;          // Assign your Track prefab (with walls + floor inside)
     public GameObject obstaclePrefab;       // Assign your Obstacle prefab (red cube)
-    public float trackLength = 50f;         // Should match your prefab's Z scale
+    public float trackLength = 500f;         // Should match your prefab's Z scale
 
     private GameObject track1;
     private GameObject track2;
@@ -47,13 +47,12 @@ public class InfiniteScroller : MonoBehaviour
 
     void InitObstacles(GameObject track)
     {
-        // Look for the TrackObstacleSpawner component on the track
         TrackObstacleSpawner spawner = track.GetComponent<TrackObstacleSpawner>();
+
         if (spawner != null)
         {
-            spawner.obstaclePrefab = obstaclePrefab; 
-            spawner.SpawnObstacles();               
+            spawner.SpawnObstacles();
         }
-    
     }
+
 }
