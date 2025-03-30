@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "SlopeByME.sln"
+    "dotnet.defaultSolution": "SpaceHole.sln"
 }
